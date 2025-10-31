@@ -1,5 +1,6 @@
 using System.Text;
 using BichoBet.Application.Handlers.User.CreateAdmin;
+using BichoBet.Application.Profiles;
 using BichoBet.Application.Settings;
 using BichoBet.Domain.Entities;
 using BichoBet.Domain.Interfaces.Repositories;
@@ -87,7 +88,10 @@ public static class ServiceCollectionExtensions
     
     private static IServiceCollection AddApplicationServices(this IServiceCollection services)
     {
-        services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(CreateAdminHandler).Assembly));
+        services.AddAutoMapper(cfg =>
+        {
+            cfg.AddMaps(typeof(ApplicationUserMapper).Assembly);
+        });
         services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(CreateAdminHandler).Assembly));
         return services;
     }

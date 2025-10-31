@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace BichoBet.Application.Handlers.User.CreateAdmin;
 
-public abstract class CreateAdminCommand : IRequest<IdentityResult>
+public class CreateAdminCommand : IRequest<IdentityResult>
 {
     public string FirstNam { get; set; }
     public string LastName { get; set; }
