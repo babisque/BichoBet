@@ -22,7 +22,6 @@ public class CreateAdminHandler(IMapper mapper,
             });
         
         var user = mapper.Map<ApplicationUser>(request);
-        user.UserName = request.Email;
         var createResult = await userManager.CreateAsync(user, request.Password);
         if (!createResult.Succeeded)
             return createResult;
