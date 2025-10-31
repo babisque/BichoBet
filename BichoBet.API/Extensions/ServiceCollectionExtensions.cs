@@ -22,6 +22,7 @@ public static class ServiceCollectionExtensions
             .AddIdentity()
             .AddCustomAuthentication(configuration)
             .AddApplicationServices()
+            .AddRepositories()
             .AddSwagger()
             .AddCustomCors();
     }
@@ -86,6 +87,7 @@ public static class ServiceCollectionExtensions
     
     private static IServiceCollection AddApplicationServices(this IServiceCollection services)
     {
+        services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(CreateAdminHandler).Assembly));
         services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(CreateAdminHandler).Assembly));
         return services;
     }
