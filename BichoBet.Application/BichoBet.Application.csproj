@@ -6,4 +6,8 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\BichoBet.Domain\BichoBet.Domain.csproj" />
+    </ItemGroup>
+
 </Project>
