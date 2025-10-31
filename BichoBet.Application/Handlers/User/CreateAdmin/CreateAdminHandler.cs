@@ -7,15 +7,13 @@ using Microsoft.AspNetCore.Identity;
 namespace BichoBet.Application.Handlers.User.CreateAdmin;
 
 public class CreateAdminHandler(IMapper mapper,
-    IRepository<ApplicationUser> userRepository,
-    IUnitOfWork unitOfWork,
     UserManager<ApplicationUser> userManager,
     RoleManager<IdentityRole<Guid>> roleManager
     ) : IRequestHandler<CreateAdminCommand, IdentityResult>
 {
     public async Task<IdentityResult> Handle(CreateAdminCommand request, CancellationToken cancellationToken)
     {
-        var existingUser = userRepository.FindAsync(x => x.Email == request.Email).Result;
+        var existingUser = await userManager.FindByEmailAsync(request.Email);
         if (existingUser is not null)
             return IdentityResult.Failed(new IdentityError
             {
