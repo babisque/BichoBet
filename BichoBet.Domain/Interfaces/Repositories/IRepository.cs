@@ -21,13 +21,13 @@ public interface IRepository<TEntity> : IDisposable where TEntity : class
     /// returns all entities asynchronously
     /// </summary>
     /// <returns>A readonly collection of all entities</returns>
-    Task<IReadOnlyList<TEntity>> GetAllAsync();
+    Task<IReadOnlyList<TEntity>> GetAllPagedAsync(int page, int pageSize);
     
     /// <summary>
     /// search for entities matching a given predicate asynchronously
     /// </summary>
     /// <returns>A readonly collection of entities matching the predicate</returns>
-    Task<IEnumerable<TEntity>> FindAsync(Expression<Func<TEntity, bool>> predicate);
+    Task<IReadOnlyList<TEntity>> FindAsync(Expression<Func<TEntity, bool>> predicate);
     
     /// <summary>
     /// Set an entity as modified

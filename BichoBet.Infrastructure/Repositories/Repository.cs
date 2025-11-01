@@ -36,15 +36,17 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
     /// <summary>
     /// find all table entities
     /// </summary>
-    public async Task<IReadOnlyList<TEntity>> GetAllAsync()
+    public async Task<IReadOnlyList<TEntity>> GetAllPagedAsync(int page, int pageSize)
     {
-        return await _dbSet.ToListAsync();
+        return await _dbSet.Skip((page - 1) * pageSize)
+            .Take(pageSize)
+            .ToListAsync();
     }
     
     /// <summary>
     /// search entities by a filter expression LINQ
     /// </summary>
-    public async Task<IEnumerable<TEntity>> FindAsync(Expression<Func<TEntity, bool>> predicate)
+    public async Task<IReadOnlyList<TEntity>> FindAsync(Expression<Func<TEntity, bool>> predicate)
     {
         return await _dbSet.Where(predicate)
             .ToListAsync();
